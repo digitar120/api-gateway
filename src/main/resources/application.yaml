@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+      routes[0]:
+        id: shopping-cart-app
+        uri: lb://SHOPPING-CART-APP
+        predicates[0]: Path=/cart/**, /products/**
+
+      routes[1]:
+        id: users-app
+        uri: lb://USERS-APP
+        predicates[0]: Path=/user/**
+
+      default-filters: TokenRelay
+
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://169.254.6.118:9090/realms/digitar120-shopping-cart-project-realm
+
+        registration:
+          spring-cloud-gateway-client:
+            client-id: spring-cloud-gateway-client
+            client-secret:
+            provider: keycloak
+            authorization-grant-type: authorization_code
+            redirect-uri: http://169.254.6.117:8080/login/oauth2/code/spring-cloud-gateway-client
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}

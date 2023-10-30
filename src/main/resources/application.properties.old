@@ -1,0 +1,40 @@
+spring.application.name=api-gateway
+
+!Spring Cloud
+spring.cloud.gateway.discovery.locator.enabled=true
+spring.cloud.loadbalancer.ribbon.enabled=false
+    !Deshabilita la estrategia de balanceo de carga de legado.
+spring.cloud.gateway.routes[0].id=product-microservice
+spring.cloud.gateway.routes[0].uri=lb://PRODUCT-MICROSERVICE
+    !Una lista de puntos de entrada que contienen una lista de microservicios implementados.
+spring.cloud.gateway.routes[0].predicates[0]=Path=/api/products/**, /api/categories/**
+    !Predicado. El conjunto de criterios que deben coincidir para que las solicitudes se reenvíen. En definitiva, son los endpoints a los que debe atender el Gateway.
+
+spring.cloud.gateway.routes[1].id=booking-microservice
+spring.cloud.gateway.routes[1].uri=lb://BOOKING-MICROSERVICE
+spring.cloud.gateway.routes[1].predicates[0]=Path=/api/booking/**
+spring.cloud.gateway.default-filters=TokenRelay
+
+!Eureka
+eureka.instance.instance-id=${spring.application.name}:${random.uuid}
+
+!Keycloak
+spring.security.oauth2.client.provider.keycloak.issuer-uri=http://169.254.6.118:9090/realms/mycompany-microservices-realm
+! Ésta URI es la URI expuesta en la información de Endpoints del Realm de Keycloak.
+
+spring.security.oauth2.client.registration.spring-cloud-gateway-client.client-id=spring-cloud-gateway-client
+! El cliente definido en el servidor Keycloak
+
+spring.security.oauth2.client.registration.spring-cloud-gateway-client.client-secret=
+
+spring.security.oauth2.client.registration.spring-cloud-gateway-client.provider=keycloak
+spring.security.oauth2.client.registration.spring-cloud-gateway-client.authorization-grant-type=authorization_code
+spring.security.oauth2.client.registration.spring-cloud-gateway-client.scope=openid
+! Los tipos de autorización se listan en la sección grant_types_supported dentro de la información expuesta en el endpoint.
+spring.security.oauth2.client.registration.spring-cloud-gateway-client.redirect-uri=http://localhost:8080/login/oauth2/code/spring-cloud-gateway-client
+
+
+
+
+!Consola
+spring.output.ansi.enabled=ALWAYS
