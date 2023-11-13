@@ -38,10 +38,11 @@ spring:
         registration:
           spring-cloud-gateway-client:
             client-id: spring-cloud-gateway-client
-            client-secret:
+            client-secret: 9P4erPhqztAV2x56CmObL2PpbfeFZ7XF
             provider: keycloak
             authorization-grant-type: authorization_code
             redirect-uri: http://169.254.6.117:8080/login/oauth2/code/spring-cloud-gateway-client
+            scope: openid
 
 eureka:
   instance:
