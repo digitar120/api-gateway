@@ -1,3 +1,9 @@
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
 spring:
   application:
     name: api-gateway
@@ -33,15 +39,15 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://169.254.6.118:9090/realms/digitar120-shopping-cart-project-realm
+            issuer-uri: http://localhost:9090/realms/digitar120-shopping-cart-project-realm
 
         registration:
           spring-cloud-gateway-client:
             client-id: spring-cloud-gateway-client
-            client-secret: 9P4erPhqztAV2x56CmObL2PpbfeFZ7XF
+            client-secret: Cl9WL7FhnazS9uDPmdmVarAehvyr44ek
             provider: keycloak
             authorization-grant-type: authorization_code
-            redirect-uri: http://169.254.6.117:8080/login/oauth2/code/spring-cloud-gateway-client
+            redirect-uri: http://localhost:8080/login/oauth2/code/spring-cloud-gateway-client
             scope: openid
 
 eureka:
