@@ -39,7 +39,7 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://localhost:9090/realms/digitar120-shopping-cart-project-realm
+            issuer-uri: http://${AUTHSERVER_IP}:${AUTHSERVER_PORT}/realms/digitar120-shopping-cart-project-realm
 
         registration:
           spring-cloud-gateway-client:
@@ -47,9 +47,14 @@ spring:
             client-secret: Cl9WL7FhnazS9uDPmdmVarAehvyr44ek
             provider: keycloak
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/spring-cloud-gateway-client
+            redirect-uri: http://host.docker.internal:8080/login/oauth2/code/spring-cloud-gateway-client
             scope: openid
 
 eureka:
   instance:
     instance-id: ${spring.application.name}:${random.uuid}
+    prefer-ip-address: true
+
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_IP}:${EUREKA_PORT}/eureka/
