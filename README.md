@@ -1,0 +1,2 @@
+# api-gateway
+Una aplicación que administra el acceso a los microservicios de carritos y usuarios. Parte de mi aplicación de carrito de compras, compilada en https://github.com/digitar120/shopping-cart-app-compose.
