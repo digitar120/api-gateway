@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    config:
+      uri: http://${CONFIG_SERVER_IP}:${CONFIG_SERVER_PORT}
+      profile: dev
